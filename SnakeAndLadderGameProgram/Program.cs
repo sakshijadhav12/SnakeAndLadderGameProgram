@@ -1,6 +1,5 @@
 ﻿namespace SnakeAndLadderGameProgram
 {
-
     class Program
     {
         static void Main(string[] args)
@@ -27,9 +26,26 @@
             int diceRoll = Dice.Roll();
             Console.WriteLine("Dice rolled: " + diceRoll);
 
-            position += diceRoll;
 
-            Console.WriteLine("Player moves to position: " + position);
+
+            int option = Option.Check();
+
+            switch (option)
+            {
+                case 0:
+                    Console.WriteLine("No Play! Player stays in the same position: " + position);
+                    break;
+                case 1:
+                    position += diceRoll;
+                    Console.WriteLine("Player landed on a ladder! Moves ahead to position: " + position);
+                    break;
+                case 2:
+                    position -= diceRoll;
+                    Console.WriteLine("Player landed on a snake! Moves behind to position: " + position);
+                    break;
+                
+            }
+
         }
         class Dice
         {
@@ -39,6 +55,14 @@
                 return random.Next(1, 7); // Returns a random number between 1 and 6
             }
         }
-    }
+        class Option
+        {
+            public static int Check()
+            {
+                Random random = new Random();
+                return random.Next(0, 3); // Returns a random number between 0 and 2
+            }
+        }
 
+    }
 }
