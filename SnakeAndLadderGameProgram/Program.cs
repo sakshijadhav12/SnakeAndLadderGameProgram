@@ -4,65 +4,82 @@
     {
         static void Main(string[] args)
         {
-            Game game = new Game();
-            game.Start();
+            Player player = new Player();
+            Dice dice = new Dice();
+            const int WinningPosition = 100;
+
+            while (player.GetPosition() < WinningPosition)
+            {
+                int dieRoll = dice.Roll(); // Roll the die to get a number between 1 to 6
+                Console.WriteLine("Die Roll: " + dieRoll);
+
+                int option = new Random().Next(0, 3); // Check for an option: No Play, Ladder, or Snake
+                switch (option)
+                {
+                    case 0: // No Play
+                        Console.WriteLine("No Play - Stay at the same position");
+                        break;
+                    case 1: // Ladder
+                        Console.WriteLine("Ladder - Move ahead by " + dieRoll + " positions");
+                        player.Move(dieRoll);
+                        break;
+                    case 2: // Snake
+                        Console.WriteLine("Snake - Move behind by " + dieRoll + " positions");
+                        player.Move(-dieRoll);
+                        break;
+                }
+
+                if (player.GetPosition() < 0)
+                    player.Restart(); // Restart from 0 if position goes below 0
+
+                Console.WriteLine("Current Position: " + player.GetPosition());
+                Console.WriteLine();
+            }
+
+            Console.WriteLine("Congratulations! You reached the winning position.");
+            Console.ReadLine();
         }
     }
 
-    class Game
+    class Player
     {
-        int position;
+        private int position;
 
-        public void Start()
+        public int GetPosition()
+        {
+            return position;
+        }
+
+        public void SetPosition(int value)
+        {
+            position = value;
+        }
+
+        public void Move(int steps)
+        {
+            position += steps;
+        }
+
+        public void Restart()
         {
             position = 0;
-
-            Console.WriteLine("Hello!Welcome to Snake and Ladder Game");
-            Console.WriteLine("Single player at start, position:" + position);
-
-            Console.WriteLine("Press  Enterkey to roll the dice...");
-            Console.ReadKey();
-
-            int diceRoll = Dice.Roll();
-            Console.WriteLine("Dice rolled: " + diceRoll);
-
-
-
-            int option = Option.Check();
-
-            switch (option)
-            {
-                case 0:
-                    Console.WriteLine("No Play! Player stays in the same position: " + position);
-                    break;
-                case 1:
-                    position += diceRoll;
-                    Console.WriteLine("Player landed on a ladder! Moves ahead to position: " + position);
-                    break;
-                case 2:
-                    position -= diceRoll;
-                    Console.WriteLine("Player landed on a snake! Moves behind to position: " + position);
-                    break;
-                
-            }
-
         }
-        class Dice
+    }
+
+    class Dice
+    {
+        private Random random;
+
+        public Dice()
         {
-            public static int Roll()
-            {
-                Random random = new Random();
-                return random.Next(1, 7); // Returns a random number between 1 and 6
-            }
-        }
-        class Option
-        {
-            public static int Check()
-            {
-                Random random = new Random();
-                return random.Next(0, 3); // Returns a random number between 0 and 2
-            }
+            random = new Random();
         }
 
+        public int Roll()
+        {
+            return random.Next(1, 7); // Returns a random number between 1 and 6
+        }
     }
 }
+
+    
