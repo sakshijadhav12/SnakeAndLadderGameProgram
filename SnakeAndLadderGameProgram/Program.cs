@@ -31,12 +31,14 @@
 
                 if (player.GetPosition() < 0)
                     player.Restart(); // Restart from 0 if position goes below 0
+                else if (player.GetPosition() > WinningPosition)
+                    player.Move(-dieRoll); // Stay at the previous position if position goes above 100
 
                 Console.WriteLine("Current Position: " + player.GetPosition());
                 Console.WriteLine();
             }
 
-            Console.WriteLine("Congratulations! You reached the winning position.");
+            Console.WriteLine("Congratulations! You reached the exact winning position.");
             Console.ReadLine();
         }
     }
@@ -81,5 +83,4 @@
         }
     }
 }
-
     
