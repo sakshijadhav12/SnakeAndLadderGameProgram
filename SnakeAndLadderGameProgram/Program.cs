@@ -4,7 +4,9 @@
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello !Welcome to the Sanke and Ladder Game");
+            int position = 0;// variable
+            Console.WriteLine("Hello,!Welcome to Snake and Ladder Game");
+            Console.WriteLine("Single player at start, position: " + position);
         }
     }
 }
