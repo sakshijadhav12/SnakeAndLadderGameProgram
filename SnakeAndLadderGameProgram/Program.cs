@@ -1,5 +1,5 @@
 ﻿namespace SnakeAndLadderGameProgram
-{
+{ 
     class Program
     {
         static void Main(string[] args)
@@ -7,11 +7,13 @@
             Player player = new Player();
             Dice dice = new Dice();
             const int WinningPosition = 100;
+            int diceCount = 0;
 
             while (player.GetPosition() < WinningPosition)
             {
                 int dieRoll = dice.Roll(); // Roll the die to get a number between 1 to 6
                 Console.WriteLine("Die Roll: " + dieRoll);
+                diceCount++;
 
                 int option = new Random().Next(0, 3); // Check for an option: No Play, Ladder, or Snake
                 switch (option)
@@ -39,6 +41,7 @@
             }
 
             Console.WriteLine("Congratulations! You reached the exact winning position.");
+            Console.WriteLine("Number of times the dice was played: " + diceCount);
             Console.ReadLine();
         }
     }
@@ -83,4 +86,3 @@
         }
     }
 }
-    
